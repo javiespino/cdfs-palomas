@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+mat-toolbar {
+  background-color: #1565c0 !important;
+  color: white !important;
+}
+
+mat-toolbar a, mat-toolbar span, mat-toolbar button {
+  color: white !important;
+}

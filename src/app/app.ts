@@ -1,12 +1,24 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Navbar } from './shared/components/navbar/navbar';
+import { Footer } from './shared/components/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  standalone: true,
+  imports: [RouterOutlet, Navbar, Footer],
+  template: `
+    <app-navbar />
+    <main>
+      <router-outlet />
+    </main>
+    <app-footer />
+  `,
+  styles: [`
+    main {
+      min-height: calc(100vh - 128px);
+      padding: 24px 16px;
+    }
+  `]
 })
-export class App {
-  protected readonly title = signal('cdfs-palomas');
-}
+export class App {}

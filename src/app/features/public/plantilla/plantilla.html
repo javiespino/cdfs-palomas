@@ -1,0 +1,87 @@
+<div class="plantilla-wrapper">
+  <div class="plantilla-header">
+    <h1>Plantilla</h1>
+  </div>
+
+  <div class="filtros">
+    <select (change)="onTemporadaChange($any($event.target).value)">
+      <option value="">Todas las temporadas</option>
+      @for (t of temporadas(); track t.id) {
+        <option [value]="t.id" [selected]="temporadaSeleccionada() === t.id">{{ t.nombre }}</option>
+      }
+    </select>
+
+    <select (change)="onCategoriaChange($any($event.target).value)">
+      @for (cat of categorias; track cat) {
+        <option [value]="cat" [selected]="categoriaSeleccionada() === cat">{{ cat }}</option>
+      }
+    </select>
+
+    <button class="btn-buscar" (click)="buscar()">Buscar</button>
+  </div>
+
+  <div class="filtros-posicion">
+    @for (pos of posiciones; track pos) {
+      <button
+        class="filtro-btn"
+        [class.activo]="posicionSeleccionada() === pos"
+        (click)="posicionSeleccionada.set(pos)">
+        {{ pos }}
+      </button>
+    }
+  </div>
+
+  @if (cargando()) {
+    <div class="estado">Cargando plantilla...</div>
+  } @else if (error()) {
+    <div class="estado error">{{ error() }}</div>
+  } @else {
+    <div class="jugadores-grid">
+      @for (jugador of jugadoresFiltrados(); track jugador.id) {
+        <div class="jugador-card">
+          <div class="jugador-foto">
+            @if (jugador.foto) {
+              <img [src]="mediaUrl + jugador.foto" [alt]="jugador.nombre" />
+            } @else {
+              <div class="foto-placeholder">👤</div>
+            }
+            @if (jugador.dorsal) {
+              <span class="dorsal">{{ jugador.dorsal }}</span>
+            }
+          </div>
+          <div class="jugador-info">
+            <h3>{{ jugador.nombre }} {{ jugador.apellidos }}</h3>
+            <span class="posicion">{{ jugador.posicion ?? 'Sin posición' }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (jugadoresFiltrados().length === 0) {
+      <div class="estado">No hay jugadores en esta selección</div>
+    }
+
+    @if (cuerpoTecnico().length > 0) {
+      <div class="cuerpo-tecnico-seccion">
+        <h2>Cuerpo técnico</h2>
+        <div class="cuerpo-tecnico-grid">
+          @for (miembro of cuerpoTecnico(); track miembro.id) {
+            <div class="miembro-card">
+              <div class="miembro-foto">
+                @if (miembro.foto) {
+                  <img [src]="mediaUrl + miembro.foto" [alt]="miembro.nombreCompleto" />
+                } @else {
+                  <div class="foto-placeholder">👤</div>
+                }
+              </div>
+              <div class="miembro-info">
+                <h3>{{ miembro.nombreCompleto }}</h3>
+                <span class="cargo">{{ miembro.cargo }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+</div>

@@ -1,0 +1,157 @@
+<div class="estadisticas-wrapper">
+  <div class="estadisticas-header">
+    <h1>Estadísticas</h1>
+  </div>
+
+  <div class="filtros">
+    <select (change)="onTemporadaChange($any($event.target).value)">
+      <option value="">Histórico total</option>
+      @for (t of temporadas(); track t.id) {
+        <option [value]="t.id">{{ t.nombre }}</option>
+      }
+    </select>
+
+    @if (categorias().length > 0 || temporadaSeleccionada()) {
+      <select (change)="onCategoriaChange($any($event.target).value)">
+        <option value="">Todas las categorías</option>
+        @for (cat of categorias(); track cat) {
+          <option [value]="cat">{{ cat }}</option>
+        }
+      </select>
+    }
+
+    @if (competiciones().length > 0) {
+      <select (change)="onCompeticionChange($any($event.target).value)">
+        <option value="">Todas las competiciones</option>
+        @for (c of competiciones(); track c.id) {
+          <option [value]="c.id">{{ c.nombre }}</option>
+        }
+      </select>
+    }
+
+    <button class="btn-buscar" (click)="buscar()">Buscar</button>
+  </div>
+
+  @if (cargando()) {
+    <div class="estado">Cargando estadísticas...</div>
+  } @else if (modoHistorico() && estadisticasPorCategoria().length > 0) {
+    @for (grupo of estadisticasPorCategoria(); track grupo.categoria) {
+    <div class="categoria-seccion">
+      <h2>{{ grupo.categoria }}</h2>
+      <div class="tabla-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Jugador</th>
+              <th>Pos</th>
+              <th class="clickable" (click)="setOrdenHistorico(grupo.categoria, 'jugados')">
+                PJ {{ ordenCampoHistorico[grupo.categoria] === 'jugados' ? '▼' : '' }}
+              </th>
+              <th class="clickable" (click)="setOrdenHistorico(grupo.categoria, 'titular')">
+                TIT {{ ordenCampoHistorico[grupo.categoria] === 'titular' ? '▼' : '' }}
+              </th>
+              <th class="clickable" (click)="setOrdenHistorico(grupo.categoria, 'goles')">
+                GOL {{ ordenCampoHistorico[grupo.categoria] === 'goles' ? '▼' : '' }}
+              </th>
+              <th class="clickable" (click)="setOrdenHistorico(grupo.categoria, 'amarillas')">
+                AM {{ ordenCampoHistorico[grupo.categoria] === 'amarillas' ? '▼' : '' }}
+              </th>
+              <th class="clickable" (click)="setOrdenHistorico(grupo.categoria, 'dobleAmarilla')">
+                2AM {{ ordenCampoHistorico[grupo.categoria] === 'dobleAmarilla' ? '▼' : '' }}
+              </th>
+              <th class="clickable" (click)="setOrdenHistorico(grupo.categoria, 'rojas')">
+                RO {{ ordenCampoHistorico[grupo.categoria] === 'rojas' ? '▼' : '' }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (e of grupo.jugadores; track e.id; let i = $index) {
+              <tr>
+                <td class="num">{{ i + 1 }}</td>
+                <td class="jugador-celda">
+                  @if (e.foto) {
+                    <img [src]="e.foto" class="foto-mini" />
+                  } @else {
+                    <span class="foto-mini-placeholder">👤</span>
+                  }
+                  {{ e.nombre }} {{ e.apellidos }}
+                </td>
+                <td>
+                  @if (e.posicion) {
+                    <span class="badge-posicion">{{ e.posicion }}</span>
+                  }
+                </td>
+                <td class="num">{{ e.jugados }}</td>
+                <td class="num">{{ e.titular }}</td>
+                <td class="num destacado">{{ e.goles }}</td>
+                <td class="num">{{ e.amarillas }}</td>
+                <td class="num">{{ e.dobleAmarilla }}</td>
+                <td class="num">{{ e.rojas }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+  } @else if (!modoHistorico() && estadisticas().length === 0) {
+    <div class="estado">No hay estadísticas para esta selección</div>
+  } @else if (!modoHistorico()) {
+    <div class="tabla-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Jugador</th>
+            <th>Pos</th>
+            <th class="clickable" (click)="ordenar('jugados')">
+              PJ {{ ordenPor() === 'jugados' ? '▼' : '' }}
+            </th>
+            <th class="clickable" (click)="ordenar('titular')">
+              TIT {{ ordenPor() === 'titular' ? '▼' : '' }}
+            </th>
+            <th class="clickable" (click)="ordenar('goles')">
+              GOL {{ ordenPor() === 'goles' ? '▼' : '' }}
+            </th>
+            <th class="clickable" (click)="ordenar('amarillas')">
+              AM {{ ordenPor() === 'amarillas' ? '▼' : '' }}
+            </th>
+            <th class="clickable" (click)="ordenar('dobleAmarilla')">
+              2AM {{ ordenPor() === 'dobleAmarilla' ? '▼' : '' }}
+            </th>
+            <th class="clickable" (click)="ordenar('rojas')">
+              RO {{ ordenPor() === 'rojas' ? '▼' : '' }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (e of estadisticasOrdenadas(); track e.id; let i = $index) {
+            <tr>
+              <td class="num">{{ i + 1 }}</td>
+              <td class="jugador-celda">
+                @if (e.foto) {
+                  <img [src]="e.foto" class="foto-mini" />
+                } @else {
+                  <span class="foto-mini-placeholder">👤</span>
+                }
+                {{ e.nombre }} {{ e.apellidos }}
+              </td>
+              <td>
+                @if (e.posicion) {
+                  <span class="badge-posicion">{{ e.posicion }}</span>
+                }
+              </td>
+              <td class="num">{{ e.jugados }}</td>
+              <td class="num">{{ e.titular }}</td>
+              <td class="num destacado">{{ e.goles }}</td>
+              <td class="num">{{ e.amarillas }}</td>
+              <td class="num">{{ e.dobleAmarilla }}</td>
+              <td class="num">{{ e.rojas }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

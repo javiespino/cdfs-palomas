@@ -1,0 +1,208 @@
+<div class="clasificacion-wrapper">
+  <div class="clasificacion-header">
+    <h1>Resumen de temporada</h1>
+  </div>
+
+  <div class="filtros">
+    <select (change)="onTemporadaChange($any($event.target).value)">
+      <option value="">Selecciona temporada</option>
+      @for (t of temporadas(); track t.id) {
+        <option [value]="t.id" [selected]="temporadaSeleccionada() === t.id">{{ t.nombre }}</option>
+      }
+    </select>
+
+    <select (change)="onCompeticionChange($any($event.target).value)">
+      <option value="">Selecciona competición</option>
+      @for (c of competiciones(); track c.id) {
+        <option [value]="c.id" [selected]="competicionSeleccionada() === c.id">{{ c.nombre }} - {{ c.categoria }}</option>
+      }
+    </select>
+
+    <button class="btn-buscar" (click)="buscar()">Buscar</button>
+  </div>
+
+  @if (cargando()) {
+    <div class="estado">Cargando...</div>
+  } @else if (!resumen()) {
+    <div class="estado">Selecciona una temporada y competición</div>
+  } @else if (resumen()!.totalPartidos === 0) {
+    <div class="estado">No hay partidos jugados en esta competición</div>
+  } @else {
+    <div class="resumen-grid">
+      <div class="stat-card puntos">
+        <span class="stat-valor">{{ resumen()!.puntos }}</span>
+        <span class="stat-label">Puntos</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-valor">{{ resumen()!.totalPartidos }}</span>
+        <span class="stat-label">Partidos jugados</span>
+      </div>
+
+      <div class="stat-card victoria">
+        <span class="stat-valor">{{ resumen()!.ganados }}</span>
+        <span class="stat-label">Victorias</span>
+      </div>
+
+      <div class="stat-card empate">
+        <span class="stat-valor">{{ resumen()!.empatados }}</span>
+        <span class="stat-label">Empates</span>
+      </div>
+
+      <div class="stat-card derrota">
+        <span class="stat-valor">{{ resumen()!.perdidos }}</span>
+        <span class="stat-label">Derrotas</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-valor">{{ resumen()!.golesFavor }}</span>
+        <span class="stat-label">Goles a favor</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-valor">{{ resumen()!.golesContra }}</span>
+        <span class="stat-label">Goles en contra</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-valor">{{ resumen()!.golesFavor - resumen()!.golesContra }}</span>
+        <span class="stat-label">Diferencia de goles</span>
+      </div>
+    </div>
+
+    <div class="resumen-extra">
+      <div class="porcentaje-card">
+        <h3>% de victorias</h3>
+        <div class="barra-wrapper">
+          <div class="barra-victoria" [style.width.%]="getPorcentajeVictorias()"></div>
+          <div class="barra-empate" [style.width.%]="resumen()!.totalPartidos > 0 ? (resumen()!.empatados / resumen()!.totalPartidos) * 100 : 0"></div>
+          <div class="barra-derrota" [style.width.%]="resumen()!.totalPartidos > 0 ? (resumen()!.perdidos / resumen()!.totalPartidos) * 100 : 0"></div>
+        </div>
+        <div class="barra-leyenda">
+          <span class="leyenda-v">V {{ getPorcentajeVictorias() }}%</span>
+          <span class="leyenda-e">E {{ resumen()!.totalPartidos > 0 ? Math.round((resumen()!.empatados / resumen()!.totalPartidos) * 100) : 0 }}%</span>
+          <span class="leyenda-d">D {{ resumen()!.totalPartidos > 0 ? Math.round((resumen()!.perdidos / resumen()!.totalPartidos) * 100) : 0 }}%</span>
+        </div>
+      </div>
+
+      <div class="racha-card">
+        <h3>Racha actual</h3>
+        <span class="racha-valor" [class]="getRachaColor()">{{ resumen()!.rachaActual }}</span>
+        <p class="racha-desc">
+          @if (resumen()!.rachaActual.endsWith('V')) { Racha de victorias }
+          @else if (resumen()!.rachaActual.endsWith('D')) { Racha de derrotas }
+          @else { Racha de empates }
+        </p>
+      </div>
+    </div>
+    @if (resumenJugadores()) {
+    <div class="jugadores-resumen">
+        <h2>Destacados</h2>
+
+        <div class="destacados-grid">
+        <div class="destacado-card">
+            <h3>⚽ Máximos goleadores</h3>
+            <div class="ranking-lista">
+            @for (j of resumenJugadores().topGoleadores; track j.idJugador; let i = $index) {
+                <div class="ranking-item">
+                <span class="ranking-pos">{{ i + 1 }}</span>
+                <span class="ranking-nombre">{{ j.nombre }} {{ j.apellidos }}</span>
+                <span class="ranking-valor">{{ j.goles }} goles</span>
+                </div>
+            }
+            @if (resumenJugadores().topGoleadores.length === 0) {
+                <p class="sin-datos">Sin datos</p>
+            }
+            </div>
+        </div>
+
+        <div class="destacado-card">
+            <h3>📋 Más partidos jugados</h3>
+            <div class="ranking-lista">
+            @for (j of resumenJugadores().topJugados; track j.idJugador; let i = $index) {
+                <div class="ranking-item">
+                <span class="ranking-pos">{{ i + 1 }}</span>
+                <span class="ranking-nombre">{{ j.nombre }} {{ j.apellidos }}</span>
+                <span class="ranking-valor">{{ j.jugados }} partidos</span>
+                </div>
+            }
+            </div>
+        </div>
+
+        <div class="destacado-card">
+            <h3>⭐ Más titularidades</h3>
+            <div class="ranking-lista">
+            @for (j of resumenJugadores().topTitular; track j.idJugador; let i = $index) {
+                <div class="ranking-item">
+                <span class="ranking-pos">{{ i + 1 }}</span>
+                <span class="ranking-nombre">{{ j.nombre }} {{ j.apellidos }}</span>
+                <span class="ranking-valor">{{ j.titular }} veces</span>
+                </div>
+            }
+            </div>
+        </div>
+
+        <div class="destacado-card">
+            <h3>🟨 Más tarjetas</h3>
+            @if (resumenJugadores().topAmarillas) {
+            <div class="ranking-item">
+                <span class="ranking-nombre">{{ resumenJugadores().topAmarillas.nombre }} {{ resumenJugadores().topAmarillas.apellidos }}</span>
+                <span class="ranking-valor amarilla">{{ resumenJugadores().topAmarillas.amarillas }} tarjetas</span>
+            </div>
+            } @else {
+            <p class="sin-datos">Sin datos</p>
+            }
+
+            <h3 style="margin-top: 16px">🟥 Más rojas</h3>
+            @if (resumenJugadores().topRojas) {
+            <div class="ranking-item">
+                <span class="ranking-nombre">{{ resumenJugadores().topRojas.nombre }} {{ resumenJugadores().topRojas.apellidos }}</span>
+                <span class="ranking-valor roja">{{ resumenJugadores().topRojas.rojas }} rojas</span>
+            </div>
+            } @else {
+            <p class="sin-datos">Sin datos</p>
+            }
+        </div>
+
+        <div class="destacado-card">
+            <h3>🏆 Mayor victoria</h3>
+            @if (resumenJugadores().mayorVictoria) {
+            <div class="partido-destacado victoria">
+                @if (resumenJugadores().mayorVictoria.esLocal) {
+                <span>CDFS Palomas</span>
+                <span class="marcador-destacado">{{ resumenJugadores().mayorVictoria.golesFavor }} - {{ resumenJugadores().mayorVictoria.golesContra }}</span>
+                <span>{{ resumenJugadores().mayorVictoria.rival }}</span>
+                } @else {
+                <span>{{ resumenJugadores().mayorVictoria.rival }}</span>
+                <span class="marcador-destacado">{{ resumenJugadores().mayorVictoria.golesContra }} - {{ resumenJugadores().mayorVictoria.golesFavor }}</span>
+                <span>CDFS Palomas</span>
+                }
+            </div>
+            } @else {
+            <p class="sin-datos">Sin datos</p>
+            }
+        </div>
+
+        <div class="destacado-card">
+            <h3>💔 Peor derrota</h3>
+            @if (resumenJugadores().peorDerrota) {
+            <div class="partido-destacado derrota">
+                @if (resumenJugadores().peorDerrota.esLocal) {
+                <span>CDFS Palomas</span>
+                <span class="marcador-destacado">{{ resumenJugadores().peorDerrota.golesFavor }} - {{ resumenJugadores().peorDerrota.golesContra }}</span>
+                <span>{{ resumenJugadores().peorDerrota.rival }}</span>
+                } @else {
+                <span>{{ resumenJugadores().peorDerrota.rival }}</span>
+                <span class="marcador-destacado">{{ resumenJugadores().peorDerrota.golesContra }} - {{ resumenJugadores().peorDerrota.golesFavor }}</span>
+                <span>CDFS Palomas</span>
+                }
+            </div>
+            } @else {
+            <p class="sin-datos">Sin datos</p>
+            }
+        </div>
+        </div>
+    </div>
+    }
+  }
+</div>

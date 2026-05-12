@@ -1,0 +1,148 @@
+.noticias-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.noticias-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.noticias-header h1 {
+  font-size: 2rem;
+  color: #1565c0;
+  margin: 0;
+}
+
+.noticias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.noticia-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.noticia-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.noticia-imagen {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.noticia-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.noticia-contenido {
+  padding: 20px;
+}
+
+.noticia-fecha {
+  font-size: 0.8rem;
+  color: #888;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.noticia-contenido h2 {
+  font-size: 1.1rem;
+  color: #1565c0;
+  margin: 0 0 12px;
+}
+
+.noticia-contenido p {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.estado {
+  text-align: center;
+  padding: 48px;
+  color: #666;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 24px;
+}
+
+.modal-noticia {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.btn-cerrar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cerrar:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+.modal-imagen {
+  width: 100%;
+  max-height: 450px;
+  object-fit: contain;
+  border-radius: 12px 12px 0 0;
+  background: #f5f5f5;
+}
+
+.modal-contenido {
+  padding: 24px;
+}
+
+.modal-contenido h2 {
+  font-size: 1.4rem;
+  color: #1565c0;
+  margin: 8px 0 16px;
+}
+
+.modal-contenido p {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
+  white-space: pre-wrap;
+}

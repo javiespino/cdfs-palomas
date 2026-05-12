@@ -1,0 +1,242 @@
+.plantilla-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.plantilla-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.plantilla-header h1 {
+  font-size: 2rem;
+  color: #1565c0;
+  margin: 0 0 8px;
+}
+
+.plantilla-header p {
+  color: #666;
+  margin: 0;
+}
+
+.filtros {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.filtro-btn {
+  padding: 8px 20px;
+  border: 2px solid #1565c0;
+  border-radius: 20px;
+  background: white;
+  color: #1565c0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filtro-btn:hover,
+.filtro-btn.activo {
+  background: #1565c0;
+  color: white;
+}
+
+.jugadores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.jugador-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.jugador-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.jugador-foto {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.jugador-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.foto-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: #bbb;
+}
+
+.jugador-info {
+  padding: 16px;
+  text-align: center;
+}
+
+.jugador-info h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.posicion {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #e3f2fd;
+  color: #1565c0;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.estado {
+  text-align: center;
+  padding: 48px;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.estado.error {
+  color: #e53935;
+}
+.filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filtros select {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  cursor: pointer;
+  flex: 1;
+  min-width: 180px;
+}
+
+.filtros-posicion {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.btn-buscar {
+  padding: 8px 24px;
+  background: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-buscar:hover {
+  background: #0d47a1;
+}
+
+.cuerpo-tecnico-seccion {
+  margin-top: 48px;
+}
+
+.cuerpo-tecnico-seccion h2 {
+  font-size: 1.5rem;
+  color: #1565c0;
+  margin: 0 0 24px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+.cuerpo-tecnico-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.miembro-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.miembro-foto {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.miembro-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.miembro-info {
+  padding: 12px;
+}
+
+.miembro-info h3 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.cargo {
+  display: inline-block;
+  padding: 3px 10px;
+  background: #C9A227;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.jugador-foto {
+  position: relative;
+}
+
+.dorsal {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #1565c0;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+}

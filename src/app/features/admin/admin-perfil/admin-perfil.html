@@ -1,0 +1,75 @@
+<div class="admin-perfil">
+  <div class="admin-header">
+    <div>
+      <a routerLink="/admin" class="volver">← Volver</a>
+      <h1>Mi perfil</h1>
+    </div>
+  </div>
+
+  <div class="perfil-grid">
+    <div class="perfil-card">
+      <h2>Datos personales</h2>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="perfil.nombre" placeholder="Nombre" />
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="perfil.email" placeholder="Email" />
+      </div>
+
+      @if (errorPerfil()) {
+        <p class="error-msg">{{ errorPerfil() }}</p>
+      }
+      @if (exitoPerfil()) {
+        <p class="exito-msg">✓ {{ exitoPerfil() }}</p>
+      }
+
+      <button class="btn-primary" (click)="guardarPerfil()" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando...' : 'Guardar cambios' }}
+      </button>
+    </div>
+
+    <div class="perfil-card">
+      <h2>Cambiar contraseña</h2>
+
+      <div class="form-group">
+        <label>Contraseña actual</label>
+        <div class="input-wrapper">
+          <input [type]="verActual() ? 'text' : 'password'" [(ngModel)]="contrasena.actual" />
+          <button type="button" class="ver-btn" (click)="verActual.set(!verActual())">
+            {{ verActual() ? '🙈' : '👁️' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Nueva contraseña</label>
+        <div class="input-wrapper">
+          <input [type]="verNueva() ? 'text' : 'password'" [(ngModel)]="contrasena.nueva" />
+          <button type="button" class="ver-btn" (click)="verNueva.set(!verNueva())">
+            {{ verNueva() ? '🙈' : '👁️' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Confirmar nueva contraseña</label>
+        <input type="password" [(ngModel)]="contrasena.confirmar" />
+      </div>
+
+      @if (errorContrasena()) {
+        <p class="error-msg">{{ errorContrasena() }}</p>
+      }
+      @if (exitoContrasena()) {
+        <p class="exito-msg">✓ {{ exitoContrasena() }}</p>
+      }
+
+      <button class="btn-primary" (click)="guardarContrasena()" [disabled]="guardandoContrasena()">
+        {{ guardandoContrasena() ? 'Guardando...' : 'Cambiar contraseña' }}
+      </button>
+    </div>
+  </div>
+</div>

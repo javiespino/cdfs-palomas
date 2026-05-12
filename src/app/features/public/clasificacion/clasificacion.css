@@ -1,0 +1,294 @@
+.clasificacion-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.clasificacion-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.clasificacion-header h1 {
+  font-size: 2rem;
+  color: #1565c0;
+  margin: 0;
+}
+
+.filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.filtros select {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  cursor: pointer;
+  flex: 1;
+  min-width: 200px;
+}
+
+.btn-buscar {
+  padding: 8px 24px;
+  background: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-buscar:hover {
+  background: #0d47a1;
+}
+
+.resumen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 8px;
+  padding: 24px 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-card.puntos {
+  border-top: 4px solid #1565c0;
+}
+
+.stat-card.victoria {
+  border-top: 4px solid #2e7d32;
+}
+
+.stat-card.empate {
+  border-top: 4px solid #f57f17;
+}
+
+.stat-card.derrota {
+  border-top: 4px solid #c62828;
+}
+
+.stat-valor {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1565c0;
+  line-height: 1;
+}
+
+.stat-card.victoria .stat-valor { color: #2e7d32; }
+.stat-card.empate .stat-valor { color: #f57f17; }
+.stat-card.derrota .stat-valor { color: #c62828; }
+.stat-card.puntos .stat-valor { font-size: 3rem; }
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.resumen-extra {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.porcentaje-card, .racha-card {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #e0e0e0;
+}
+
+.porcentaje-card h3, .racha-card h3 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  color: #1565c0;
+}
+
+.barra-wrapper {
+  display: flex;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.barra-victoria { background: #2e7d32; transition: width 0.5s; }
+.barra-empate { background: #f57f17; transition: width 0.5s; }
+.barra-derrota { background: #c62828; transition: width 0.5s; }
+
+.barra-leyenda {
+  display: flex;
+  gap: 16px;
+  font-size: 0.85rem;
+}
+
+.leyenda-v { color: #2e7d32; font-weight: 600; }
+.leyenda-e { color: #f57f17; font-weight: 600; }
+.leyenda-d { color: #c62828; font-weight: 600; }
+
+.racha-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.racha-valor {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.racha-victoria { color: #2e7d32; }
+.racha-empate { color: #f57f17; }
+.racha-derrota { color: #c62828; }
+
+.racha-desc {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.estado {
+  text-align: center;
+  padding: 48px;
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .resumen-extra {
+    grid-template-columns: 1fr;
+  }
+}
+
+.jugadores-resumen {
+  margin-top: 32px;
+}
+
+.jugadores-resumen h2 {
+  font-size: 1.5rem;
+  color: #1565c0;
+  margin: 0 0 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+.destacados-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.destacado-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #e0e0e0;
+}
+
+.destacado-card h3 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  color: #1565c0;
+}
+
+.ranking-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ranking-item:last-child {
+  border-bottom: none;
+}
+
+.ranking-pos {
+  width: 24px;
+  height: 24px;
+  background: #1565c0;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ranking-nombre {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.ranking-valor {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1565c0;
+}
+
+.ranking-valor.amarilla { color: #f57f17; }
+.ranking-valor.roja { color: #c62828; }
+
+.partido-destacado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.partido-destacado.victoria {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.partido-destacado.derrota {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.marcador-destacado {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 0 12px;
+}
+
+.sin-datos {
+  color: #aaa;
+  font-size: 0.85rem;
+  margin: 0;
+  text-align: center;
+  padding: 16px 0;
+}

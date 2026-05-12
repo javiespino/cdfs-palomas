@@ -1,0 +1,136 @@
+<div class="modal-overlay" (click)="onCerrar()">
+  <div class="modal-grande" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <h2>{{ partido.rival }}</h2>
+        <p class="partido-info">{{ partido.nombreCompeticion }} · {{ partido.categoria }}</p>
+      </div>
+      <button class="btn-cerrar" (click)="onCerrar()">✕</button>
+    </div>
+
+    <div class="tabs">
+      <button [class.activo]="vista() === 'convocatoria'" (click)="vista.set('convocatoria')">
+        Convocatoria
+      </button>
+      <button [class.activo]="vista() === 'estadisticas'" (click)="vista.set('estadisticas')"
+        [disabled]="!partido.jugado">
+        Estadísticas
+      </button>
+    </div>
+
+    @if (cargando()) {
+      <div class="estado">Cargando...</div>
+    } @else {
+
+      @if (vista() === 'convocatoria') {
+        <div class="convocatoria-wrapper">
+          <div class="seccion">
+            <h3>Convocados ({{ convocatorias().length }})</h3>
+            @if (convocatorias().length === 0) {
+              <div class="estado-vacio">No hay jugadores convocados</div>
+            } @else {
+              <div class="jugadores-lista">
+                @for (c of convocatorias(); track c.id) {
+                  <div class="jugador-item convocado">
+                    <div class="jugador-datos">
+                      @if (c.fotoJugador) {
+                        <img [src]="c.fotoJugador" class="foto-mini" />
+                      } @else {
+                        <span class="foto-mini-placeholder">👤</span>
+                      }
+                      <span>{{ c.nombreJugador }} {{ c.apellidosJugador }}</span>
+                    </div>
+                    <button class="btn-quitar" (click)="quitar(c.id)">✕</button>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="seccion">
+            <h3>Disponibles</h3>
+            <input type="text" class="buscador" [(ngModel)]="busqueda" placeholder="Buscar jugador..." />
+            @if (jugadoresNoConvocados().length === 0) {
+              <div class="estado-vacio">No hay jugadores disponibles</div>
+            } @else {
+              <div class="jugadores-lista">
+                @for (j of jugadoresNoConvocados(); track j.id) {
+                  <div class="jugador-item">
+                    <div class="jugador-datos">
+                      @if (j.foto) {
+                        <img [src]="j.foto" class="foto-mini" />
+                      } @else {
+                        <span class="foto-mini-placeholder">👤</span>
+                      }
+                      <span>{{ j.nombre }} {{ j.apellidos }}</span>
+                    </div>
+                    <button class="btn-añadir" (click)="annadir(j.id)">+ Añadir</button>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      @if (vista() === 'estadisticas') {
+        <div class="estadisticas-wrapper">
+          <div class="titulares-contador" [class.ok]="convocatorias().filter(c => c.titular).length === 5"
+            [class.error]="convocatorias().filter(c => c.titular).length !== 5">
+            Titulares: {{ convocatorias().filter(c => c.titular).length }} / 5
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Jugador</th>
+                <th>Titular</th>
+                <th>Goles</th>
+                <th>🟨</th>
+                <th>🟨🟨</th>
+                <th>🟥</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (c of convocatorias(); track c.id) {
+                <tr>
+                  <td>{{ c.nombreJugador }} {{ c.apellidosJugador }}</td>
+                  <td>
+                    <input type="checkbox" [(ngModel)]="c.titular" />
+                  </td>
+                  <td>
+                    <input type="number" [(ngModel)]="c.goles" min="0" class="input-num" />
+                  </td>
+                  <td>
+                    <input type="checkbox"
+                      [checked]="c.amarillas > 0"
+                      (change)="seleccionarTarjeta(c, 'amarilla')" />
+                  </td>
+                  <td>
+                    <input type="checkbox"
+                      [checked]="c.dobleAmarilla"
+                      (change)="seleccionarTarjeta(c, 'dobleAmarilla')" />
+                  </td>
+                  <td>
+                    <input type="checkbox"
+                      [checked]="c.roja"
+                      (change)="seleccionarTarjeta(c, 'roja')" />
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+          <div class="estadisticas-footer">
+            @if (guardadoOk()) {
+              <span class="guardado-ok">✓ Guardado correctamente</span>
+            }
+            <button class="btn-primary" (click)="guardarEstadisticas()" [disabled]="guardando()">
+              {{ guardando() ? 'Guardando...' : 'Guardar estadísticas' }}
+            </button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

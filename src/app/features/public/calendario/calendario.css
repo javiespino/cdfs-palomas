@@ -1,0 +1,363 @@
+.calendario-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.calendario-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.calendario-header h1 {
+  font-size: 2rem;
+  color: #1565c0;
+  margin: 0;
+}
+
+.filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.filtros select {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  cursor: pointer;
+  flex: 1;
+  min-width: 200px;
+}
+
+.secciones {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.seccion h2 {
+  font-size: 1.3rem;
+  color: #1565c0;
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+.partido-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #1565c0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.partido-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.partido-card.victoria { border-left-color: #2e7d32; }
+.partido-card.derrota { border-left-color: #c62828; }
+.partido-card.empate { border-left-color: #f57f17; }
+
+.partido-fecha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+  text-align: center;
+}
+
+.dia {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1565c0;
+  line-height: 1;
+}
+
+.mes {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.partido-info {
+  flex: 1;
+}
+
+.competicion {
+  font-size: 0.8rem;
+  color: #888;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.partido-equipos {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+}
+
+.equipo {
+  font-weight: 500;
+  color: #333;
+}
+
+.equipo.local {
+  color: #1565c0;
+  font-weight: 700;
+}
+
+.vs {
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.marcador {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+  padding: 2px 12px;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.badge-local {
+  padding: 4px 10px;
+  background: #e3f2fd;
+  color: #1565c0;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.badge-visitante {
+  padding: 4px 10px;
+  background: #f5f5f5;
+  color: #666;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.badge-resultado {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.badge-resultado.victoria { background: #e8f5e9; color: #2e7d32; }
+.badge-resultado.derrota { background: #ffebee; color: #c62828; }
+.badge-resultado.empate { background: #fff8e1; color: #f57f17; }
+
+.estado {
+  text-align: center;
+  padding: 32px;
+  color: #888;
+}
+
+/* Modal detalle */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 24px;
+}
+
+.modal-detalle {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.btn-cerrar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.3);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cerrar:hover {
+  background: rgba(0,0,0,0.5);
+}
+
+.detalle-header {
+  padding: 28px 24px;
+  text-align: center;
+  color: white;
+  border-radius: 12px 12px 0 0;
+}
+
+.detalle-header.victoria { background: #2e7d32; }
+.detalle-header.derrota { background: #c62828; }
+.detalle-header.empate { background: #f57f17; }
+.detalle-header.pendiente { background: #1565c0; }
+
+.detalle-competicion {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.detalle-temporada {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+.detalle-marcador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.detalle-equipo {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.detalle-equipo.local {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.detalle-resultado {
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 0 8px;
+}
+
+.detalle-fecha {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.detalle-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detalle-seccion h3 {
+  font-size: 1rem;
+  color: #1565c0;
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e3f2fd;
+}
+
+.jugadores-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jugador-detalle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #f9f9f9;
+}
+
+.jugador-detalle-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.foto-mini-detalle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.foto-mini-placeholder {
+  font-size: 1.5rem;
+}
+
+.jugador-detalle-nombre {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.jugador-detalle-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.stat-gol {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.propia-info {
+  padding: 12px;
+  background: #fff8e1;
+  border-radius: 6px;
+  color: #f57f17;
+  font-size: 0.9rem;
+}
+
+.detalle-vacio {
+  padding: 32px;
+  text-align: center;
+  color: #aaa;
+}
+
+@media (max-width: 600px) {
+  .partido-card {
+    flex-wrap: wrap;
+  }
+
+  .partido-equipos {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .detalle-marcador {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

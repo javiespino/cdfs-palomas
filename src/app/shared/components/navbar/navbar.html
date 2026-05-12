@@ -1,0 +1,61 @@
+<div class="topbar">
+  <span>Síguenos en:</span>
+  <div class="topbar-rrss">
+    <a href="https://www.instagram.com/cdfs_palomas/" target="_blank" title="Instagram">
+      <img src="icons/instagram.png" alt="Instagram" />
+    </a>
+    <a href="https://x.com/CDFS_Palomas" target="_blank" title="Twitter">
+      <img src="icons/gorjeo.png" alt="Twitter" />
+    </a>
+    <a href="https://whatsapp.com/channel/0029VaKNhvQ3GJOyV938SA1e" target="_blank" title="WhatsApp">
+      <img src="icons/whatsapp.png" alt="WhatsApp" />
+    </a>
+    <a href="https://www.facebook.com/share/g/1Ahmb9GVyH/" target="_blank" title="Facebook">
+      <img src="icons/facebook.png" alt="Facebook" />
+    </a>
+    <a href="https://www.youtube.com/@CDFSPalomas" target="_blank" title="YouTube">
+      <img src="icons/youtube.png" alt="YouTube" />
+    </a>
+  </div>
+</div>
+
+<nav class="navbar">
+  <a class="logo" routerLink="/">
+    <img src="escudo.png" alt="CDFS Palomas" height="40" />
+    <span>CDFS Palomas</span>
+  </a>
+
+  <div class="nav-links" [class.abierto]="menuAbierto()">
+
+    <div class="nav-item dropdown">
+      <span class="nav-link dropdown-toggle">Club ▾</span>
+      <div class="dropdown-menu">
+        <a routerLink="/historia" routerLinkActive="activo" (click)="menuAbierto.set(false)">Historia</a>
+        <a routerLink="/pabellon" routerLinkActive="activo" (click)="menuAbierto.set(false)">Pabellón</a>
+      </div>
+    </div>
+
+    <a routerLink="/plantilla" routerLinkActive="activo" (click)="menuAbierto.set(false)">Plantilla</a>
+
+    <div class="nav-item dropdown">
+      <span class="nav-link dropdown-toggle">Temporada ▾</span>
+      <div class="dropdown-menu">
+        <a routerLink="/calendario" routerLinkActive="activo" (click)="menuAbierto.set(false)">Calendario</a>
+        <a routerLink="/clasificacion" routerLinkActive="activo" (click)="menuAbierto.set(false)">Clasificación</a>
+        <a routerLink="/estadisticas" routerLinkActive="activo" (click)="menuAbierto.set(false)">Estadísticas</a>
+      </div>
+    </div>
+
+    <a routerLink="/noticias" routerLinkActive="activo" (click)="menuAbierto.set(false)">Noticias</a>
+
+    <a (click)="irAdmin(); menuAbierto.set(false)" style="cursor:pointer">
+      <img src="icons/login.svg" alt="Admin" style="width:24px; height:24px; filter: brightness(0) invert(1);" />
+    </a>
+  </div>
+
+  <button class="hamburguesa" (click)="menuAbierto.set(!menuAbierto())">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>

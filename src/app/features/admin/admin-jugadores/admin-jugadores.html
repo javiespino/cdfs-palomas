@@ -1,0 +1,165 @@
+<div class="admin-jugadores">
+  <div class="admin-header">
+    <div>
+      <a routerLink="/admin" class="volver">← Volver</a>
+      <h1>Gestión de jugadores</h1>
+    </div>
+    <button class="btn-primary" (click)="abrirFormulario()">+ Nuevo jugador</button>
+  </div>
+
+  <div class="filtros">
+    <input type="text" [(ngModel)]="filtros.nombre" placeholder="Buscar por nombre..." class="filtro-input" />
+
+    <select [(ngModel)]="filtros.categoria">
+      <option value="">Todas las categorías</option>
+      @for (cat of categorias; track cat) {
+        <option [value]="cat">{{ cat }}</option>
+      }
+    </select>
+
+    <select [(ngModel)]="filtros.idTemporada">
+      <option [value]="0">Todas las temporadas</option>
+      @for (t of temporadas(); track t.id) {
+        <option [value]="t.id">{{ t.nombre }}</option>
+      }
+    </select>
+
+    <button class="btn-buscar" (click)="buscar()">Buscar</button>
+  </div>
+
+  @if (error()) {
+    <p class="error-msg">{{ error() }}</p>
+  }
+
+  @if (cargando()) {
+    <div class="estado">Cargando...</div>
+  } @else {
+    <div class="jugadores-tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Posición</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (jugador of jugadoresFiltrados(); track jugador.id) {
+            <tr>
+              <td>
+                @if (jugador.foto) {
+                  <img [src]="jugador.foto" class="foto-mini" />
+                } @else {
+                  <span class="foto-mini-placeholder">👤</span>
+                }
+              </td>
+              <td>{{ jugador.nombre }}</td>
+              <td>{{ jugador.apellidos }}</td>
+              <td>{{ jugador.posicion ?? '-' }}</td>
+              <td>
+                <span [class]="jugador.activo ? 'badge activo' : 'badge inactivo'">
+                  {{ jugador.activo ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td class="acciones">
+                <button class="btn-dorsal" (click)="abrirDorsalFormulario(jugador)">Dorsal</button>
+                <button class="btn-editar" (click)="abrirFormulario(jugador)">Editar</button>
+                <button class="btn-eliminar" (click)="eliminar(jugador.id)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      @if (jugadoresFiltrados().length === 0) {
+        <div class="estado">No hay jugadores</div>
+      }
+    </div>
+  }
+</div>
+
+@if (mostrarFormulario()) {
+  <div class="modal-overlay" (click)="cerrarFormulario()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ jugadorEditando() ? 'Editar jugador' : 'Nuevo jugador' }}</h2>
+        <button class="btn-cerrar" (click)="cerrarFormulario()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre *</label>
+        <input type="text" [(ngModel)]="form.nombre" placeholder="Nombre" />
+      </div>
+      <div class="form-group">
+        <label>Apellidos *</label>
+        <input type="text" [(ngModel)]="form.apellidos" placeholder="Apellidos" />
+      </div>
+      <div class="form-group">
+        <label>Posición</label>
+        <select [(ngModel)]="form.posicion">
+          <option value="">Sin posición</option>
+          @for (pos of posiciones; track pos) {
+            <option [value]="pos">{{ pos }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Foto</label>
+        <input type="file" accept="image/*" (change)="onFotoChange($event)" />
+      </div>
+      <div class="form-group check-group">
+        <input type="checkbox" id="activo" [(ngModel)]="form.activo" />
+        <label for="activo">Activo</label>
+      </div>
+
+      @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
+
+      <div class="modal-footer">
+        <button class="btn-secundario" (click)="cerrarFormulario()">Cancelar</button>
+        <button class="btn-primary" (click)="guardar()" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (mostrarDorsalFormulario()) {
+  <div class="modal-overlay" (click)="cerrarDorsalFormulario()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Asignar dorsal</h2>
+        <button class="btn-cerrar" (click)="cerrarDorsalFormulario()">✕</button>
+      </div>
+
+      <p class="jugador-nombre">{{ jugadorDorsal()?.nombre }} {{ jugadorDorsal()?.apellidos }}</p>
+
+      <div class="form-group">
+        <label>Temporada *</label>
+        <select [(ngModel)]="dorsalForm.idTemporada">
+          <option [value]="0">Selecciona temporada</option>
+          @for (t of temporadas(); track t.id) {
+            <option [value]="t.id">{{ t.nombre }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Dorsal *</label>
+        <input type="number" [(ngModel)]="dorsalForm.dorsalNumero" min="1" max="99" placeholder="Nº dorsal" />
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secundario" (click)="cerrarDorsalFormulario()">Cancelar</button>
+        <button class="btn-primary" (click)="guardarDorsal()" [disabled]="guardandoDorsal()">
+          {{ guardandoDorsal() ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

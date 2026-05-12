@@ -1,0 +1,48 @@
+<div class="noticias-wrapper">
+  <div class="noticias-header">
+    <h1>Noticias</h1>
+  </div>
+
+  @if (cargando()) {
+    <div class="estado">Cargando noticias...</div>
+  } @else if (noticias().length === 0) {
+    <div class="estado">No hay noticias publicadas</div>
+  } @else {
+    <div class="noticias-grid">
+      @for (noticia of noticias(); track noticia.id) {
+        <div class="noticia-card" (click)="abrirNoticia(noticia)">
+          @if (noticia.imagen) {
+            <div class="noticia-imagen">
+              <img [src]="mediaUrl + noticia.imagen" [alt]="noticia.titulo" />
+            </div>
+          }
+          <div class="noticia-contenido">
+            <span class="noticia-fecha">{{ noticia.createdAt | date:'dd/MM/yyyy' }}</span>
+            <h2>{{ noticia.titulo }}</h2>
+            <p>{{ extracto(noticia.contenido) }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@if (noticiaSeleccionada()) {
+  <div class="modal-overlay" (click)="cerrarNoticia()">
+    <div class="modal-noticia" (click)="$event.stopPropagation()">
+      <button class="btn-cerrar" (click)="cerrarNoticia()">✕</button>
+
+      @if (noticiaSeleccionada()!.imagen) {
+        <img [src]="mediaUrl + noticiaSeleccionada()!.imagen"
+          [alt]="noticiaSeleccionada()!.titulo"
+          class="modal-imagen" />
+      }
+
+      <div class="modal-contenido">
+        <span class="noticia-fecha">{{ noticiaSeleccionada()!.createdAt | date:'dd/MM/yyyy' }}</span>
+        <h2>{{ noticiaSeleccionada()!.titulo }}</h2>
+        <p>{{ noticiaSeleccionada()!.contenido }}</p>
+      </div>
+    </div>
+  </div>
+}

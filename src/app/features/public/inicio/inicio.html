@@ -1,0 +1,111 @@
+<div class="hero">
+  <div class="hero-content">
+    <img src="escudo.png" alt="CDFS Palomas" class="hero-escudo" />
+    <h1>Club Deportivo Fútbol Sala Palomas</h1>
+    <p>Palomas, Extremadura</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" routerLink="/plantilla">Ver plantilla</a>
+      <a class="btn-secondary" routerLink="/calendario">Calendario</a>
+    </div>
+  </div>
+</div>
+
+@if (noticias().length > 0) {
+  <section class="noticias-seccion">
+    <div class="noticias-destacadas">
+      @for (noticia of noticias(); track noticia.id) {
+        <div class="noticia-destacada" (click)="abrirNoticia(noticia)">
+          @if (noticia.imagen) {
+            <img [src]="mediaUrl + noticia.imagen" [alt]="noticia.titulo" class="noticia-bg" />
+          } @else {
+            <div class="noticia-bg-placeholder"></div>
+          }
+          <div class="noticia-overlay">
+            <span class="noticia-fecha">{{ noticia.createdAt | date:'dd MMM yyyy' }}</span>
+            <h2>{{ noticia.titulo }}</h2>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="ver-mas-noticias">
+      <a routerLink="/noticias" class="btn-ver-mas">Ver todas las noticias</a>
+    </div>
+  </section>
+}
+
+@if (proximosPartidos().length > 0) {
+  <section class="proximos-seccion">
+    <h2 class="seccion-titulo">Próximos partidos</h2>
+    <div class="proximos-grid">
+      @for (item of proximosPartidos(); track item.categoria) {
+        <div class="proximo-card">
+          <div class="proximo-categoria">{{ item.categoria }}</div>
+          <div class="proximo-fecha">{{ item.partido.fecha | date:'dd MMM yyyy' }}</div>
+          <div class="proximo-equipos">
+            @if (item.partido.esLocal) {
+              <span class="equipo local">CDFS Palomas</span>
+              <span class="vs">vs</span>
+              <span class="equipo">{{ item.partido.rival }}</span>
+            } @else {
+              <span class="equipo">{{ item.partido.rival }}</span>
+              <span class="vs">vs</span>
+              <span class="equipo local">CDFS Palomas</span>
+            }
+          </div>
+          <span class="proximo-competicion">{{ item.partido.nombreCompeticion }}</span>
+        </div>
+      }
+    </div>
+    <div class="ver-mas-noticias">
+      <a routerLink="/calendario" class="btn-ver-mas">Ver calendario completo</a>
+    </div>
+  </section>
+}
+
+<section class="banner-seccion">
+  <img src="bannerabonos.png" alt="Abonos 2025/26" class="banner-imagen" />
+</section>
+
+@if (jugadoresAleatorios().length > 0) {
+  <section class="jugadores-seccion">
+    <h2 class="seccion-titulo">Nuestros jugadores</h2>
+    <div class="jugadores-aleatorios">
+      @for (jugador of jugadoresAleatorios(); track jugador.id) {
+        <div class="jugador-card-inicio">
+          <div class="jugador-foto-inicio">
+            @if (jugador.foto) {
+              <img [src]="mediaUrl + jugador.foto" [alt]="jugador.nombre" />
+            } @else {
+              <div class="foto-placeholder-inicio">👤</div>
+            }
+          </div>
+          <div class="jugador-info-inicio">
+            <h3>{{ jugador.nombre }} {{ jugador.apellidos }}</h3>
+            <span class="posicion-badge">{{ jugador.posicion ?? 'Sin posición' }}</span>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="ver-mas-noticias">
+      <a routerLink="/plantilla" class="btn-ver-mas">Conoce a nuestros jugadores</a>
+    </div>
+  </section>
+}
+
+@if (noticiaSeleccionada()) {
+  <div class="modal-overlay" (click)="cerrarNoticia()">
+    <div class="modal-noticia" (click)="$event.stopPropagation()">
+      <button class="btn-cerrar" (click)="cerrarNoticia()">✕</button>
+      @if (noticiaSeleccionada()!.imagen) {
+        <img [src]="mediaUrl + noticiaSeleccionada()!.imagen"
+          [alt]="noticiaSeleccionada()!.titulo"
+          class="modal-imagen" />
+      }
+      <div class="modal-contenido">
+        <span class="noticia-fecha">{{ noticiaSeleccionada()!.createdAt | date:'dd/MM/yyyy' }}</span>
+        <h2>{{ noticiaSeleccionada()!.titulo }}</h2>
+        <p>{{ noticiaSeleccionada()!.contenido }}</p>
+      </div>
+    </div>
+  </div>
+}

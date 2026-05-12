@@ -1,0 +1,83 @@
+<div class="admin-noticias">
+  <div class="admin-header">
+    <div>
+      <a routerLink="/admin" class="volver">← Volver</a>
+      <h1>Gestión de noticias</h1>
+    </div>
+    <button class="btn-primary" (click)="abrirFormulario()">+ Nueva noticia</button>
+  </div>
+
+  @if (cargando()) {
+    <div class="estado">Cargando...</div>
+  } @else {
+    <div class="noticias-lista">
+      @for (noticia of noticias(); track noticia.id) {
+        <div class="noticia-item">
+          @if (noticia.imagen) {
+            <img [src]="mediaUrl + noticia.imagen" class="noticia-thumb" />
+          } @else {
+            <div class="noticia-thumb-placeholder">📰</div>
+          }
+          <div class="noticia-info">
+            <h3>{{ noticia.titulo }}</h3>
+            <span class="fecha">{{ noticia.createdAt | date:'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="noticia-acciones">
+            <button class="btn-editar" (click)="abrirFormulario(noticia)">Editar</button>
+            <button class="btn-eliminar" (click)="eliminar(noticia.id)">Eliminar</button>
+          </div>
+        </div>
+      }
+      @if (noticias().length === 0) {
+        <div class="estado">No hay noticias publicadas</div>
+      }
+    </div>
+  }
+</div>
+
+@if (mostrarFormulario()) {
+  <div class="modal-overlay" (click)="cerrarFormulario()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ noticiaEditando() ? 'Editar noticia' : 'Nueva noticia' }}</h2>
+        <button class="btn-cerrar" (click)="cerrarFormulario()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label>Título *</label>
+        <input type="text" [(ngModel)]="form.titulo" placeholder="Título de la noticia" />
+      </div>
+
+      <div class="form-group">
+        <label>Contenido *</label>
+        <textarea [(ngModel)]="form.contenido" rows="8" 
+          placeholder="Contenido de la noticia..."
+          (paste)="onPaste($event)"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Imagen</label>
+        <div class="imagen-upload" (paste)="onPaste($event)" tabindex="0">
+          @if (previstaImagen()) {
+            <img [src]="previstaImagen()!" class="imagen-previa" />
+            <button type="button" class="btn-quitar-imagen" (click)="quitarImagen()">✕ Quitar imagen</button>
+          } @else {
+            <p>📋 Pega una imagen aquí (Ctrl+V) o</p>
+            <input type="file" accept="image/*" (change)="onImagenChange($event)" />
+          }
+        </div>
+      </div>
+
+      @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
+
+      <div class="modal-footer">
+        <button class="btn-secundario" (click)="cerrarFormulario()">Cancelar</button>
+        <button class="btn-primary" (click)="guardar()" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

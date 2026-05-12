@@ -1,0 +1,47 @@
+.historia-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.historia-header {
+  text-align: center;
+  margin-bottom: 48px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+.historia-header h1 {
+  font-size: 2rem;
+  color: #1565c0;
+  margin: 0 0 8px;
+}
+
+.historia-header p {
+  color: #888;
+  margin: 0;
+}
+
+.proximamente {
+  text-align: center;
+  padding: 64px 16px;
+  color: #aaa;
+}
+
+.proximamente .material-icons {
+  font-size: 64px !important;
+  color: #e3f2fd;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.proximamente h2 {
+  font-size: 1.3rem;
+  color: #bbb;
+  margin: 0 0 8px;
+}
+
+.proximamente p {
+  font-size: 0.95rem;
+  margin: 0;
+}

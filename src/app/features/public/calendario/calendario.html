@@ -1,0 +1,225 @@
+<div class="calendario-wrapper">
+  <div class="calendario-header">
+    <h1>Calendario</h1>
+  </div>
+
+  <div class="filtros">
+    <select (change)="onTemporadaChange($any($event.target).value)">
+      <option value="">Todas las temporadas</option>
+      @for (t of temporadas(); track t.id) {
+        <option [value]="t.id">{{ t.nombre }}</option>
+      }
+    </select>
+
+    <select (change)="onCategoriaChange($any($event.target).value)">
+      <option value="">Todas las categorías</option>
+      @for (cat of categorias; track cat) {
+        <option [value]="cat">{{ cat }}</option>
+      }
+    </select>
+  </div>
+
+  @if (cargando()) {
+    <div class="estado">Cargando partidos...</div>
+  } @else {
+    <div class="secciones">
+      <div class="seccion">
+        <h2>Próximos partidos</h2>
+        @if (proximosPartidos().length === 0) {
+          <div class="estado">No hay próximos partidos</div>
+        } @else {
+          @for (partido of proximosPartidos(); track partido.id) {
+            <div class="partido-card proximo" (click)="abrirDetalle(partido.id)" style="cursor:pointer">
+              <div class="partido-fecha">
+                <span class="dia">{{ partido.fecha | date:'dd' }}</span>
+                <span class="mes">{{ partido.fecha | date:'MMM' }}</span>
+              </div>
+              <div class="partido-info">
+                <span class="competicion">{{ partido.nombreCompeticion }} · {{ partido.categoria }}</span>
+                <div class="partido-equipos">
+                  @if (partido.esLocal) {
+                    <span class="equipo local">CDFS Palomas</span>
+                    <span class="vs">vs</span>
+                    <span class="equipo">{{ partido.rival }}</span>
+                  } @else {
+                    <span class="equipo">{{ partido.rival }}</span>
+                    <span class="vs">vs</span>
+                    <span class="equipo local">CDFS Palomas</span>
+                  }
+                </div>
+              </div>
+              <div class="partido-local">
+                <span [class]="partido.esLocal ? 'badge-local' : 'badge-visitante'">
+                  {{ partido.esLocal ? 'Local' : 'Visitante' }}
+                </span>
+              </div>
+            </div>
+          }
+        }
+      </div>
+
+      <div class="seccion">
+        <h2>Resultados</h2>
+        @if (resultados().length === 0) {
+          <div class="estado">No hay resultados todavía</div>
+        } @else {
+          @for (partido of resultados(); track partido.id) {
+            <div class="partido-card resultado" [class]="resultado(partido)" (click)="abrirDetalle(partido.id)" style="cursor:pointer">
+              <div class="partido-fecha">
+                <span class="dia">{{ partido.fecha | date:'dd' }}</span>
+                <span class="mes">{{ partido.fecha | date:'MMM' }}</span>
+              </div>
+              <div class="partido-info">
+                <span class="competicion">{{ partido.nombreCompeticion }} · {{ partido.categoria }}</span>
+                <div class="partido-equipos">
+                  @if (partido.esLocal) {
+                    <span class="equipo local">CDFS Palomas</span>
+                    <span class="marcador">{{ partido.golesFavor }} - {{ partido.golesContra }}</span>
+                    <span class="equipo">{{ partido.rival }}</span>
+                  } @else {
+                    <span class="equipo">{{ partido.rival }}</span>
+                    <span class="marcador">{{ partido.golesContra }} - {{ partido.golesFavor }}</span>
+                    <span class="equipo local">CDFS Palomas</span>
+                  }
+                </div>
+              </div>
+              <div class="partido-resultado">
+                <span class="badge-resultado" [class]="resultado(partido)">
+                  {{ resultado(partido) === 'victoria' ? 'Victoria' : resultado(partido) === 'derrota' ? 'Derrota' : 'Empate' }}
+                </span>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  }
+</div>
+
+@if (cargandoDetalle()) {
+  <div class="modal-overlay">
+    <div class="modal-detalle">
+      <div class="estado">Cargando...</div>
+    </div>
+  </div>
+}
+
+@if (partidoDetalle()) {
+  <div class="modal-overlay" (click)="cerrarDetalle()">
+    <div class="modal-detalle" (click)="$event.stopPropagation()">
+      <button class="btn-cerrar" (click)="cerrarDetalle()">✕</button>
+
+      <div class="detalle-header" [class]="partidoDetalle().jugado ? resultado(partidoDetalle()) : 'pendiente'">
+        <span class="detalle-competicion">{{ partidoDetalle().nombreCompeticion }} · {{ partidoDetalle().categoria }}</span>
+        <span class="detalle-temporada">{{ partidoDetalle().nombreTemporada }}</span>
+        <div class="detalle-marcador">
+          @if (partidoDetalle().esLocal) {
+            <span class="detalle-equipo local">CDFS Palomas</span>
+            @if (partidoDetalle().jugado) {
+              <span class="detalle-resultado">{{ partidoDetalle().golesFavor }} - {{ partidoDetalle().golesContra }}</span>
+            } @else {
+              <span class="detalle-resultado">vs</span>
+            }
+            <span class="detalle-equipo">{{ partidoDetalle().rival }}</span>
+          } @else {
+            <span class="detalle-equipo">{{ partidoDetalle().rival }}</span>
+            @if (partidoDetalle().jugado) {
+              <span class="detalle-resultado">{{ partidoDetalle().golesContra }} - {{ partidoDetalle().golesFavor }}</span>
+            } @else {
+              <span class="detalle-resultado">vs</span>
+            }
+            <span class="detalle-equipo local">CDFS Palomas</span>
+          }
+        </div>
+        <span class="detalle-fecha">{{ partidoDetalle().fecha | date:'dd/MM/yyyy' }}</span>
+      </div>
+
+      @if (partidoDetalle().convocatorias.length > 0) {
+        <div class="detalle-content">
+
+          <div class="detalle-seccion">
+            <h3>Titulares</h3>
+            <div class="jugadores-detalle">
+              @for (c of partidoDetalle().convocatorias; track c.id) {
+                @if (c.titular) {
+                  <div class="jugador-detalle-item">
+                    <div class="jugador-detalle-info">
+                      @if (c.fotoJugador) {
+                        <img [src]="mediaUrl + c.fotoJugador" class="foto-mini-detalle" />
+                      } @else {
+                        <span class="foto-mini-placeholder">👤</span>
+                      }
+                      <span class="jugador-detalle-nombre">{{ c.nombreJugador }} {{ c.apellidosJugador }}</span>
+                    </div>
+                    <div class="jugador-detalle-stats">
+                      @if (c.goles > 0) {
+                        <span class="stat-gol">⚽ {{ c.goles }}</span>
+                      }
+                      @if (c.amarillas > 0) {
+                        <span class="stat-tarjeta">🟨 {{ c.amarillas }}</span>
+                      }
+                      @if (c.dobleAmarilla) {
+                        <span class="stat-tarjeta">🟨🟨</span>
+                      }
+                      @if (c.roja) {
+                        <span class="stat-tarjeta">🟥</span>
+                      }
+                    </div>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+
+          <div class="detalle-seccion">
+            <h3>Suplentes</h3>
+            <div class="jugadores-detalle">
+              @for (c of partidoDetalle().convocatorias; track c.id) {
+                @if (!c.titular) {
+                  <div class="jugador-detalle-item">
+                    <div class="jugador-detalle-info">
+                      @if (c.fotoJugador) {
+                        <img [src]="mediaUrl + c.fotoJugador" class="foto-mini-detalle" />
+                      } @else {
+                        <span class="foto-mini-placeholder">👤</span>
+                      }
+                      <span class="jugador-detalle-nombre">{{ c.nombreJugador }} {{ c.apellidosJugador }}</span>
+                    </div>
+                    <div class="jugador-detalle-stats">
+                      @if (c.goles > 0) {
+                        <span class="stat-gol">⚽ {{ c.goles }}</span>
+                      }
+                      @if (c.amarillas > 0) {
+                        <span class="stat-tarjeta">🟨 {{ c.amarillas }}</span>
+                      }
+                      @if (c.dobleAmarilla) {
+                        <span class="stat-tarjeta">🟨🟨</span>
+                      }
+                      @if (c.roja) {
+                        <span class="stat-tarjeta">🟥</span>
+                      }
+                    </div>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+
+          @if (partidoDetalle().golesEnPropia > 0) {
+            <div class="detalle-seccion">
+              <h3>Goles en propia</h3>
+              <div class="propia-info">
+                <span>⚽ {{ partidoDetalle().golesEnPropia }} gol{{ partidoDetalle().golesEnPropia > 1 ? 'es' : '' }} en propia puerta</span>
+              </div>
+            </div>
+          }
+
+        </div>
+      } @else {
+        <div class="detalle-vacio">
+          <p>No hay convocatoria registrada para este partido</p>
+        </div>
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,179 @@
+<div class="admin-cuerpo-tecnico">
+  <div class="admin-header">
+    <div>
+      <a routerLink="/admin" class="volver">← Volver</a>
+      <h1>Gestión del cuerpo técnico</h1>
+    </div>
+    @if (vista() === 'personas') {
+      <button class="btn-primary" (click)="abrirFormPersona()">+ Nueva persona</button>
+    } @else {
+      <button class="btn-primary" (click)="abrirFormAsignacion()">+ Nueva asignación</button>
+    }
+  </div>
+
+  <div class="tabs">
+    <button [class.activo]="vista() === 'personas'" (click)="vista.set('personas')">Personas</button>
+    <button [class.activo]="vista() === 'asignaciones'" (click)="vista.set('asignaciones')">Asignaciones</button>
+  </div>
+
+  @if (vista() === 'personas') {
+    <div class="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of personas(); track p.id) {
+            <tr>
+              <td>
+                @if (p.foto) {
+                  <img [src]="mediaUrl + p.foto" class="foto-mini" />
+                } @else {
+                  <span class="foto-mini-placeholder">👤</span>
+                }
+              </td>
+              <td>{{ p.nombre }}</td>
+              <td>{{ p.apellidos }}</td>
+              <td class="acciones">
+                <button class="btn-editar" (click)="abrirFormPersona(p)">Editar</button>
+                <button class="btn-eliminar" (click)="eliminarPersona(p.id)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (personas().length === 0) {
+        <div class="estado">No hay personas en el cuerpo técnico</div>
+      }
+    </div>
+  }
+
+  @if (vista() === 'asignaciones') {
+    <div class="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Persona</th>
+            <th>Cargo</th>
+            <th>Categoría</th>
+            <th>Temporada</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (a of asignaciones(); track a.id) {
+            <tr>
+              <td>{{ a.nombreCompleto }}</td>
+              <td>{{ a.cargo }}</td>
+              <td>{{ a.categoria }}</td>
+              <td>{{ a.nombreTemporada }}</td>
+              <td class="acciones">
+                <button class="btn-eliminar" (click)="eliminarAsignacion(a.id)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (asignaciones().length === 0) {
+        <div class="estado">No hay asignaciones</div>
+      }
+    </div>
+  }
+</div>
+
+@if (mostrarFormPersona()) {
+  <div class="modal-overlay" (click)="cerrarFormPersona()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ personaEditando() ? 'Editar persona' : 'Nueva persona' }}</h2>
+        <button class="btn-cerrar" (click)="cerrarFormPersona()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre *</label>
+        <input type="text" [(ngModel)]="formPersona.nombre" placeholder="Nombre" />
+      </div>
+      <div class="form-group">
+        <label>Apellidos *</label>
+        <input type="text" [(ngModel)]="formPersona.apellidos" placeholder="Apellidos" />
+      </div>
+      <div class="form-group">
+        <label>Foto</label>
+        <input type="file" accept="image/*" (change)="onFotoChange($event)" />
+      </div>
+
+      @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
+
+      <div class="modal-footer">
+        <button class="btn-secundario" (click)="cerrarFormPersona()">Cancelar</button>
+        <button class="btn-primary" (click)="guardarPersona()" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (mostrarFormAsignacion()) {
+  <div class="modal-overlay" (click)="cerrarFormAsignacion()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Nueva asignación</h2>
+        <button class="btn-cerrar" (click)="cerrarFormAsignacion()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label>Persona *</label>
+        <select [(ngModel)]="formAsignacion.idCuerpoTecnico">
+          <option [value]="0">Selecciona persona</option>
+          @for (p of personas(); track p.id) {
+            <option [value]="p.id">{{ p.nombre }} {{ p.apellidos }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Temporada *</label>
+        <select [(ngModel)]="formAsignacion.idTemporada">
+          <option [value]="0">Selecciona temporada</option>
+          @for (t of temporadas(); track t.id) {
+            <option [value]="t.id">{{ t.nombre }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Categoría *</label>
+        <select [(ngModel)]="formAsignacion.categoria">
+          <option value="">Selecciona categoría</option>
+          @for (cat of categorias; track cat) {
+            <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Cargo *</label>
+        <input type="text" [(ngModel)]="formAsignacion.cargo" placeholder="ej: Entrenador, Preparador físico..." />
+      </div>
+
+      @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
+
+      <div class="modal-footer">
+        <button class="btn-secundario" (click)="cerrarFormAsignacion()">Cancelar</button>
+        <button class="btn-primary" (click)="guardarAsignacion()" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

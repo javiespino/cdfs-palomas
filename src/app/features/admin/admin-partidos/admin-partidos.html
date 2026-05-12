@@ -1,0 +1,146 @@
+<div class="admin-partidos">
+  <div class="admin-header">
+    <div>
+      <a routerLink="/admin" class="volver">← Volver</a>
+      <h1>Gestión de partidos</h1>
+    </div>
+    <button class="btn-primary" (click)="abrirFormulario()">+ Nuevo partido</button>
+  </div>
+
+  <div class="filtros">
+    <select (change)="onTemporadaChange($any($event.target).value)">
+      <option value="">Todas las temporadas</option>
+      @for (t of temporadas(); track t.id) {
+        <option [value]="t.id">{{ t.nombre }}</option>
+      }
+    </select>
+  </div>
+
+  @if (cargando()) {
+    <div class="estado">Cargando...</div>
+  } @else {
+    <div class="partidos-tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Rival</th>
+            <th>Competición</th>
+            <th>Categoría</th>
+            <th>Local/Visitante</th>
+            <th>Resultado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (partido of partidos(); track partido.id) {
+            <tr>
+              <td>{{ partido.fecha | date:'dd/MM/yyyy' }}</td>
+              <td>{{ partido.rival }}</td>
+              <td>{{ partido.nombreCompeticion }}</td>
+              <td>{{ partido.categoria }}</td>
+              <td>
+                <span [class]="partido.esLocal ? 'badge-local' : 'badge-visitante'">
+                  {{ partido.esLocal ? 'Local' : 'Visitante' }}
+                </span>
+              </td>
+              <td>
+                @if (partido.jugado) {
+                  <span class="marcador" [class]="resultado(partido)">
+                    @if (partido.esLocal) {
+                      {{ partido.golesFavor }} - {{ partido.golesContra }}
+                    } @else {
+                      {{ partido.golesContra }} - {{ partido.golesFavor }}
+                    }
+                  </span>
+                } @else {
+                  <span class="pendiente">Pendiente</span>
+                }
+              </td>
+              <td class="acciones">
+                <button class="btn-convocar" (click)="abrirConvocatoria(partido)">Convocatoria</button>
+                <button class="btn-editar" (click)="abrirFormulario(partido)">Editar</button>
+                <button class="btn-eliminar" (click)="eliminar(partido.id)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      @if (partidos().length === 0) {
+        <div class="estado">No hay partidos</div>
+      }
+    </div>
+  }
+</div>
+
+@if (mostrarFormulario()) {
+  <div class="modal-overlay" (click)="cerrarFormulario()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ partidoEditando() ? 'Editar partido' : 'Nuevo partido' }}</h2>
+        <button class="btn-cerrar" (click)="cerrarFormulario()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha *</label>
+        <input type="date" [(ngModel)]="form.fecha" />
+      </div>
+
+      <div class="form-group">
+        <label>Rival *</label>
+        <input type="text" [(ngModel)]="form.rival" placeholder="Nombre del equipo rival" />
+      </div>
+
+      <div class="form-group">
+        <label>Competición *</label>
+        <select [(ngModel)]="form.idCompeticion">
+          <option [value]="0">Selecciona competición</option>
+          @for (c of competiciones(); track c.id) {
+            <option [value]="c.id">{{ c.nombre }} - {{ c.categoria }} ({{ c.nombreTemporada }})</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group check-group">
+        <input type="checkbox" id="esLocal" [(ngModel)]="form.esLocal" />
+        <label for="esLocal">Partido en casa (local)</label>
+      </div>
+
+      <div class="form-group check-group">
+        <input type="checkbox" id="jugado" [(ngModel)]="form.jugado" />
+        <label for="jugado">Partido ya jugado</label>
+      </div>
+
+      @if (form.jugado) {
+        <div class="form-row">
+          <div class="form-group">
+            <label>Goles CDFS Palomas</label>
+            <input type="number" [(ngModel)]="form.golesFavor" min="0" />
+          </div>
+          <div class="form-group">
+            <label>Goles rival</label>
+            <input type="number" [(ngModel)]="form.golesContra" min="0" />
+          </div>
+        </div>
+      }
+
+      @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
+
+      <div class="modal-footer">
+        <button class="btn-secundario" (click)="cerrarFormulario()">Cancelar</button>
+        <button class="btn-primary" (click)="guardar()" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (partidoConvocatoria()) {
+  <app-admin-convocatorias
+    [partido]="partidoConvocatoria()!"
+    [onCerrar]="cerrarConvocatoria.bind(this)" />
+}

@@ -1,0 +1,89 @@
+<div class="admin-competiciones">
+  <div class="admin-header">
+    <div>
+      <a routerLink="/admin" class="volver">← Volver</a>
+      <h1>Gestión de competiciones</h1>
+    </div>
+    <button class="btn-primary" (click)="abrirFormulario()">+ Nueva competición</button>
+  </div>
+
+  @if (cargando()) {
+    <div class="estado">Cargando...</div>
+  } @else {
+    <div class="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Temporada</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (comp of competiciones(); track comp.id) {
+            <tr>
+              <td>{{ comp.nombre }}</td>
+              <td>{{ comp.categoria }}</td>
+              <td>{{ comp.nombreTemporada }}</td>
+              <td class="acciones">
+                <button class="btn-editar" (click)="abrirFormulario(comp)">Editar</button>
+                <button class="btn-eliminar" (click)="eliminar(comp.id)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (competiciones().length === 0) {
+        <div class="estado">No hay competiciones creadas</div>
+      }
+    </div>
+  }
+</div>
+
+@if (mostrarFormulario()) {
+  <div class="modal-overlay" (click)="cerrarFormulario()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ competicionEditando() ? 'Editar competición' : 'Nueva competición' }}</h2>
+        <button class="btn-cerrar" (click)="cerrarFormulario()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre *</label>
+        <input type="text" [(ngModel)]="form.nombre" placeholder="ej: Fase Regular" />
+      </div>
+
+      <div class="form-group">
+        <label>Categoría *</label>
+        <select [(ngModel)]="form.categoria">
+          <option value="">Selecciona categoría</option>
+          @for (cat of categorias; track cat) {
+            <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Temporada *</label>
+        <select [(ngModel)]="form.idTemporada">
+          <option [value]="0">Selecciona temporada</option>
+          @for (t of temporadas(); track t.id) {
+            <option [value]="t.id">{{ t.nombre }}</option>
+          }
+        </select>
+      </div>
+
+      @if (error()) {
+        <p class="error-msg">{{ error() }}</p>
+      }
+
+      <div class="modal-footer">
+        <button class="btn-secundario" (click)="cerrarFormulario()">Cancelar</button>
+        <button class="btn-primary" (click)="guardar()" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

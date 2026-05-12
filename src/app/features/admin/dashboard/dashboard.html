@@ -1,0 +1,50 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <div>
+      <h1>Panel de administración</h1>
+      <p>Bienvenido, {{ nombre }}</p>
+    </div>
+    <button class="btn-logout" (click)="logout()">
+      <span class="material-icons">logout</span>
+      Cerrar sesión
+    </button>
+  </div>
+
+  <div class="accesos-admin">
+    <div class="admin-card" (click)="navegar('jugadores')">
+      <span class="material-icons admin-icon">group</span>
+      <h3>Jugadores</h3>
+      <p>Gestionar plantilla</p>
+    </div>
+    <div class="admin-card" (click)="navegar('partidos')">
+      <span class="material-icons admin-icon">sports_soccer</span>
+      <h3>Partidos</h3>
+      <p>Gestionar calendario y resultados</p>
+    </div>
+    <div class="admin-card" (click)="navegar('noticias')">
+      <span class="material-icons admin-icon">newspaper</span>
+      <h3>Noticias</h3>
+      <p>Publicar y editar noticias</p>
+    </div>
+    <div class="admin-card" (click)="navegar('temporadas')">
+      <span class="material-icons admin-icon">calendar_month</span>
+      <h3>Temporadas</h3>
+      <p>Gestionar temporadas</p>
+    </div>
+    <div class="admin-card" (click)="navegar('competiciones')">
+      <span class="material-icons admin-icon">emoji_events</span>
+      <h3>Competiciones</h3>
+      <p>Gestionar competiciones</p>
+    </div>
+    <div class="admin-card" (click)="navegar('cuerpo-tecnico')">
+      <span class="material-icons admin-icon">supervisor_account</span>
+      <h3>Cuerpo técnico</h3>
+      <p>Gestionar cuerpo técnico</p>
+    </div>
+    <div class="admin-card" (click)="navegar('perfil')">
+      <span class="material-icons admin-icon">manage_accounts</span>
+      <h3>Mi perfil</h3>
+      <p>Editar datos y contraseña</p>
+    </div>
+  </div>
+</div>
