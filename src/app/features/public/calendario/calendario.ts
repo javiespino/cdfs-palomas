@@ -91,4 +91,21 @@ export class Calendario implements OnInit {
   cerrarDetalle() {
     this.partidoDetalle.set(null);
   }
+
+  partidosPorTemporada() {
+    const grupos: { temporada: string; proximos: any[]; resultados: any[] }[] = [];
+    
+    const temporadasUnicas = [...new Set(this.partidos().map(p => p.nombreTemporada))];
+    
+    temporadasUnicas.forEach(temporada => {
+      const partidosTemporada = this.partidos().filter(p => p.nombreTemporada === temporada);
+      grupos.push({
+        temporada,
+        proximos: partidosTemporada.filter(p => !p.jugado),
+        resultados: partidosTemporada.filter(p => p.jugado)
+      });
+    });
+    
+    return grupos;
+  }
 }
