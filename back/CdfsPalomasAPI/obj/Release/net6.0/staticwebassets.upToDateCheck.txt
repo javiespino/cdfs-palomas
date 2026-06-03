@@ -1,0 +1,14 @@
+wwwroot\fotos\noticias\1146649f-5720-40e1-8407-301c642c9b21.png
+wwwroot\fotos\noticias\21a3faa3-de3a-4f58-92ae-3a9a4f3456a4.png
+wwwroot\fotos\noticias\24080eb9-400c-4d8d-bf33-ded832d7169c.JPG
+wwwroot\fotos\noticias\3c02e0b7-4617-4401-adc0-ab6173930947.png
+wwwroot\fotos\noticias\418556ef-e3b7-4b84-a495-24c3cfc2c69a.png
+wwwroot\fotos\noticias\50dadb7c-8d14-4d0f-85c3-36434958e7c5.png
+wwwroot\fotos\noticias\864814e1-3c01-4ce1-a1f7-d00eb1e7881e.png
+wwwroot\fotos\noticias\94640e2c-e8ed-4c07-8209-204c39e6e985.png
+wwwroot\fotos\noticias\971a1a9f-b767-41ca-91b8-6cbea05dbcde.png
+wwwroot\fotos\noticias\99667c27-1ce2-4cb1-beed-e79b5b2e38b2.png
+wwwroot\fotos\noticias\bbf1faf0-22b3-45f6-b094-e9f27175878f.png
+wwwroot\fotos\noticias\beff50bf-e193-4a1a-90d9-ef5e0946d7da.png
+wwwroot\fotos\noticias\c7114ff3-48d5-43f5-b95f-1131c4025b9d.png
+wwwroot\fotos\noticias\e7a95705-892a-41b5-a9c9-e9b723e6cc9a.png

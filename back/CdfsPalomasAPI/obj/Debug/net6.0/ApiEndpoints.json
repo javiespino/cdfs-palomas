@@ -1,0 +1,978 @@
+[
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.AuthController",
+    "Method": "CambiarContrasena",
+    "RelativePath": "api/Auth/cambiar-contrasena",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.CambiarContrasenaDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.AuthController",
+    "Method": "GenerarHash",
+    "RelativePath": "api/Auth/hash",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "contrasena",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.AuthController",
+    "Method": "GetPerfil",
+    "RelativePath": "api/Auth/perfil",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.AuthController",
+    "Method": "ActualizarPerfil",
+    "RelativePath": "api/Auth/perfil",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.ActualizarPerfilDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CompeticionesController",
+    "Method": "GetCompeticiones",
+    "RelativePath": "api/Competiciones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CompeticionesController",
+    "Method": "Crear",
+    "RelativePath": "api/Competiciones",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.CrearCompeticionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CompeticionesController",
+    "Method": "Editar",
+    "RelativePath": "api/Competiciones/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.CrearCompeticionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CompeticionesController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Competiciones/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CompeticionesController",
+    "Method": "GetPorTemporada",
+    "RelativePath": "api/Competiciones/temporada/{idTemporada}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.ConvocatoriasController",
+    "Method": "Quitar",
+    "RelativePath": "api/Convocatorias/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.ConvocatoriasController",
+    "Method": "ActualizarEstadisticas",
+    "RelativePath": "api/Convocatorias/estadisticas/{idPartido}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idPartido",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dtos",
+        "Type": "System.Collections.Generic.List\u00601[[CdfsPalomasAPI.DTOs.ActualizarEstadisticasDto, CdfsPalomasAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.ConvocatoriasController",
+    "Method": "GetPorPartido",
+    "RelativePath": "api/Convocatorias/partido/{idPartido}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idPartido",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.ConvocatoriasController",
+    "Method": "A\u00F1adir",
+    "RelativePath": "api/Convocatorias/partido/{idPartido}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idPartido",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.CrearConvocatoriaDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CuerpoTecnicoController",
+    "Method": "Get",
+    "RelativePath": "api/CuerpoTecnico",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CuerpoTecnicoController",
+    "Method": "Crear",
+    "RelativePath": "api/CuerpoTecnico",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Nombre",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Apellidos",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "foto",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CuerpoTecnicoController",
+    "Method": "Editar",
+    "RelativePath": "api/CuerpoTecnico/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Nombre",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Apellidos",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "foto",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CuerpoTecnicoController",
+    "Method": "Eliminar",
+    "RelativePath": "api/CuerpoTecnico/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CuerpoTecnicoController",
+    "Method": "GetAsignaciones",
+    "RelativePath": "api/CuerpoTecnico/asignaciones",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "categoria",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CuerpoTecnicoController",
+    "Method": "CrearAsignacion",
+    "RelativePath": "api/CuerpoTecnico/asignaciones",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.CrearAsignacionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.CuerpoTecnicoController",
+    "Method": "EliminarAsignacion",
+    "RelativePath": "api/CuerpoTecnico/asignaciones/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.DorsalesController",
+    "Method": "Crear",
+    "RelativePath": "api/Dorsales",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.DorsalDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.DorsalesController",
+    "Method": "Editar",
+    "RelativePath": "api/Dorsales/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.DorsalDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.DorsalesController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Dorsales/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.DorsalesController",
+    "Method": "GetPorTemporada",
+    "RelativePath": "api/Dorsales/temporada/{idTemporada}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "GetJugadores",
+    "RelativePath": "api/Jugadores",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "Crear",
+    "RelativePath": "api/Jugadores",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Nombre",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Apellidos",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Posicion",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Activo",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "foto",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "GetJugador",
+    "RelativePath": "api/Jugadores/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "Editar",
+    "RelativePath": "api/Jugadores/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Nombre",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Apellidos",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Posicion",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Activo",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "foto",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Jugadores/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "GetAleatorios",
+    "RelativePath": "api/Jugadores/aleatorios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cantidad",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "GetEstadisticas",
+    "RelativePath": "api/Jugadores/estadisticas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "categoria",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "idCompeticion",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "GetHistorico",
+    "RelativePath": "api/Jugadores/estadisticas/historico",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "Filtrar",
+    "RelativePath": "api/Jugadores/filtrar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "categoria",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "GetJugadoresPorTemporada",
+    "RelativePath": "api/Jugadores/temporada/{idTemporada}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.JugadoresController",
+    "Method": "GetTodos",
+    "RelativePath": "api/Jugadores/todos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.NoticiasController",
+    "Method": "GetNoticias",
+    "RelativePath": "api/Noticias",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.NoticiasController",
+    "Method": "Crear",
+    "RelativePath": "api/Noticias",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Titulo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Contenido",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "imagen",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.NoticiasController",
+    "Method": "GetNoticia",
+    "RelativePath": "api/Noticias/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.NoticiasController",
+    "Method": "Editar",
+    "RelativePath": "api/Noticias/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Titulo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Contenido",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "imagen",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.NoticiasController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Noticias/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.PartidosController",
+    "Method": "GetPartidos",
+    "RelativePath": "api/Partidos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "categoria",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.PartidosController",
+    "Method": "Crear",
+    "RelativePath": "api/Partidos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.CrearPartidoDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.PartidosController",
+    "Method": "GetPartido",
+    "RelativePath": "api/Partidos/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.PartidosController",
+    "Method": "Editar",
+    "RelativePath": "api/Partidos/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.CrearPartidoDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.PartidosController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Partidos/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.PartidosController",
+    "Method": "GetDetalle",
+    "RelativePath": "api/Partidos/{id}/detalle",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.PartidosController",
+    "Method": "GetProximos",
+    "RelativePath": "api/Partidos/proximos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.PartidosController",
+    "Method": "GetResumen",
+    "RelativePath": "api/Partidos/resumen",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "idCompeticion",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.PartidosController",
+    "Method": "GetResumenJugadores",
+    "RelativePath": "api/Partidos/resumen/jugadores",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTemporada",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "idCompeticion",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.TemporadasController",
+    "Method": "GetTemporadas",
+    "RelativePath": "api/Temporadas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.TemporadasController",
+    "Method": "Crear",
+    "RelativePath": "api/Temporadas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.TemporadaDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.TemporadasController",
+    "Method": "Editar",
+    "RelativePath": "api/Temporadas/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "CdfsPalomasAPI.DTOs.TemporadaDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CdfsPalomasAPI.Controllers.TemporadasController",
+    "Method": "Eliminar",
+    "RelativePath": "api/Temporadas/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
